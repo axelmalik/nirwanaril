@@ -1,0 +1,21 @@
+# Memastikan bahwa file .htaccess ini dapat dijalankan
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Mencegah akses ke file dengan ekstensi tertentu
+    RewriteRule \.(xml|json|csv|pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|tar|gz|exe|sh|bat|cmd|msi|ps1|htm|html|js|css|svg|txt)$ - [F,L]
+
+    # Mengarahkan semua permintaan ke index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Mencegah akses ke file .htaccess itu sendiri
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Mencegah direktori listing
+Options -Indexes
